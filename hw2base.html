@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Memory Game</title>
+  <link rel="stylesheet" href="cardgame.css">
+
+</head>
+
+<body>
+  <h1>Pokémon Memory Game</h1>
+  <div id="game-board">
+    <div class="card" id="c023" data-id="023">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/023.png"
+          alt="Pokémon #023"></div>
+    </div>
+    <div class="card" id="c024" data-id="024">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/024.png"
+          alt="Pokémon #023"></div>
+    </div>
+    <div class="card" id="c025" data-id="025">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/024.png"
+          alt="Pokémon #023"></div>
+    </div>
+    <div class="card" id="c026" data-id="026">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/025.png"
+          alt="Pokémon #023"></div>
+    </div>
+    <div class="card" id="c027" data-id="027">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/023.png"
+          alt="Pokémon #023"></div>
+    </div>
+    <div class="card" id="c028" data-id="028">
+      <div class="back"></div>
+      <div class="front"><img src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/025.png"
+          alt="Pokémon #023"></div>
+    </div>
+  </div>
+  <div id="counter">Clicks: 
+    <span id = "countNum">0</span>
+  </div>
+  <!-- This is for example only. Make sure that you remove all script to an external .js file-->
+  <script>
+    let countElement = document.getElementById('countNum');
+    let countNumInt = 0;
+    
+    let openCard = 0;
+    let lastCard;
+
+    let pairAmount = 0;
+
+    function flipCard() {
+      if(this.id == "c023"){
+        
+      }
+
+      if (this.classList.contains("flipped")) {
+        //this.classList.remove("flipped");
+     
+      } else {
+        this.classList.add("flipped");
+        if(openCard == 0){
+          openCard = 1;
+          lastCard = this;
+        }
+        else if(openCard == 1){
+          openCard = 2;
+        }
+      }
+
+      let doFlip = true;
+
+      if(openCard >= 2){
+        if(this.id == "c023" && lastCard.id == "c027" || this.id == "c027" && lastCard.id == "c023" ){
+          doFlip = false;
+          pairAmount++;
+        }
+        else if(this.id == "c024" && lastCard.id == "c025" || this.id == "c025" && lastCard.id == "c024" ){
+          doFlip = false;
+          pairAmount++;
+        }
+        else if(this.id == "c026" && lastCard.id == "c028" || this.id == "c028" && lastCard.id == "c026" ){
+          doFlip = false;
+          pairAmount++;
+        }
+        if(doFlip == true){
+          setTimeout(() => {
+           this.classList.remove("flipped");
+          lastCard.classList.remove("flipped");
+          doFlip = false;
+          }, 1000);
+        }
+        openCard = 0;
+      }
+      countNumInt++;
+      countElement.innerText = countNumInt;
+
+      if(pairAmount >= 3){
+        let person = prompt("You win", "But I can't access data--id nor image in <body> to do random stuff T_T. Probably miss some fundamental knowledge.");
+      }
+      
+    }
+
+     // setTimeout(() => {
+        //   this.classList.remove("flipped");
+        //   console.log ("flip back")
+        // }, 1000);
+
+
+
+
+    let card1 = document.querySelector('#c023');
+    card1.addEventListener("click", flipCard);
+    // if(card1.id == "c023"){
+    //   countElement.innerText = 666;
+    // }
+    let card2 = document.querySelector('#c024');
+    card2.addEventListener("click", flipCard);
+    let card3 = document.querySelector('#c025');
+    card3.addEventListener("click", flipCard);
+    let card4 = document.querySelector('#c026');
+    card4.addEventListener("click", flipCard);
+    let card5 = document.querySelector('#c027');
+    card5.addEventListener("click", flipCard);
+    let card6 = document.querySelector('#c028');
+    card6.addEventListener("click", flipCard);
+  
+
+
+  </script>
+</body>
+
+</html>
